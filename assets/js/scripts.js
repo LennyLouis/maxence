@@ -36,10 +36,10 @@
     });
 
     // Activate scrollspy to add active class to navbar items on scroll
-    $("body").scrollspy({
+    /*$("body").scrollspy({
         target: "#mainNav",
         offset: 74,
-    });
+    });*/
 
     // Collapse Navbar
     var navbarCollapse = function () {

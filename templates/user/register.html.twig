@@ -4,6 +4,12 @@
 
 {% block title %}Créer votre compte{% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="/build/js/password-score.js" defer></script>
+    <script type="text/javascript" src="/build/js/password-score-options.js" defer></script>
+    <script type="text/javascript" src="/build/js/bootstrap-strength-meter.js" defer></script>
+{% endblock %}
+
 {% block body %}
     <!-- Masthead-->
     <header class="masthead">
@@ -20,8 +26,47 @@
                 <h3 class="section-subheading text-muted">Rejoignez notre groupe de pronostiqueurs.</h3>
             </div>
             <div class="row text-center justify-content-md-center">
-                    {{ form(registerForm) }}
+                {# {{ form(registerForm) }} #}
+            </div>
+
+            {# <div class="my-custom-class-for-errors">
+                {{ form_errors(registerForm) }}
+            </div>#}
+
+            <div class="row text-center justify-content-md-center"> <!-- Start -->
+                <form name="form" method="post" enctype="multipart/form-data"> <!-- Form -->
+                    <div id="form"> <!-- div id -->
+                        {{ form_row(registerForm.firstname) }}
+                        {{ form_row(registerForm.lastname) }}
+                        {{ form_row(registerForm.username) }}
+                        {{ form_row(registerForm.birthdate) }}
+                        {{ form_row(registerForm.mail) }}
+                        {{ form_row(registerForm.avatar) }}
+                        {{ form_row(registerForm.gender) }}
+                        <div class="form-group">
+                            {{ form_widget(registerForm.password) }}
+                            <div id="example-text-hierarchy-text" style="font-weight:bold;padding:6px 12px;">
+
+                            </div>
+                            {{ form_help(registerForm.password) }}
+                        </div>
+                        {{ form_row(registerForm.submit) }}
+                    </div>
+                </form>
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form_password_first').strengthMeter('text', {
+                container: $('#example-text-hierarchy-text'),
+                hierarchy: {
+                    '0': ['text-danger', 'Mot de passe trop simple !'],
+                    '25': ['text-warning', 'Mot de passe faible'], //TODO : A partir de 25 rendre le bouton #form_submit cliquable
+                    '50': ['text-warning', 'Mot de passe moyen'],
+                    '75': ['text-success', 'Ok, bon mot de passe']
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,5 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme modifyForm 'bootstrap_4_layout.html.twig' %}
+{% form_theme passwordForm 'bootstrap_4_layout.html.twig' %}
+{% form_theme addressForm 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0" ></script>
+    <script src="https://cdn.jsdelivr.net/leaflet/1/leaflet.js" ></script>
+{% endblock %}
+
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
@@ -15,9 +28,9 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Bonjour {{ app.user.firstName }}</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted"></h3>
             </div>
-            <div class="row text-center">
+            <!--<div class="row text-center">
                 <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
@@ -42,7 +55,133 @@
                     <h4 class="my-3">Web Security</h4>
                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                 </div>
+            </div>-->
+            <div class="row">
+                <div class="col-4">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-personal-info-list" data-toggle="list" href="#list-personal-info" role="tab" aria-controls="personal_info">Informations personnelles</a>
+                        <a class="list-group-item list-group-item-action" id="list-password-list" data-toggle="list" href="#list-password" role="tab" aria-controls="password">Mot de passe</a>
+                        <a class="list-group-item list-group-item-action" id="list-address-list" data-toggle="list" href="#list-address" role="tab" aria-controls="messages">Adresse</a>
+                        <a class="list-group-item list-group-item-action" id="list-subscription-list" data-toggle="list" href="#list-subscription" role="tab" aria-controls="subscription">Mon abonnement</a>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-personal-info" role="tabpanel" aria-labelledby="list-personal-info-list">
+                            {{ form(modifyForm) }}
+                        </div>
+                        <div class="tab-pane fade" id="list-password" role="tabpanel" aria-labelledby="list-password-list">
+                            {{ form(passwordForm) }}
+                        </div>
+                        <div class="tab-pane fade" id="list-address" role="tabpanel" aria-labelledby="list-address-list">
+                            <form name="addressForm" method="post">
+                                <div id="addressForm">
+                                    {{ form_row(addressForm.address) }}
+                                    <div class="form-group" id="map-container" style="height: 300px;border-radius:5px;z-index:-1;"></div>
+                                    {{ form_row(addressForm.submit) }}
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="list-subscription" role="tabpanel" aria-labelledby="list-subscription-list">
+                            <h3>Mon abonnement :</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- autocomplete postal address -->
+    <script type="application/javascript" defer>
+        /*var placesAutocomplete = places({
+            container: document.querySelector('#addressForm_address')
+        });*/
+        (function() {
+            var placesAutocomplete = places({
+                container: document.querySelector('#addressForm_address')
+            });
+
+            var map = L.map('map-container', {
+                scrollWheelZoom: false,
+                zoomControl: false
+            });
+
+            var osmLayer = new L.TileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    minZoom: 1,
+                    maxZoom: 13,
+                    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                }
+            );
+
+            var markers = [];
+
+            map.setView(new L.LatLng(0, 0), 1);
+            map.addLayer(osmLayer);
+
+            placesAutocomplete.on('suggestions', handleOnSuggestions);
+            placesAutocomplete.on('cursorchanged', handleOnCursorchanged);
+            placesAutocomplete.on('change', handleOnChange);
+            placesAutocomplete.on('clear', handleOnClear);
+
+            function handleOnSuggestions(e) {
+                markers.forEach(removeMarker);
+                markers = [];
+
+                if (e.suggestions.length === 0) {
+                    map.setView(new L.LatLng(0, 0), 1);
+                    return;
+                }
+
+                e.suggestions.forEach(addMarker);
+                findBestZoom();
+            }
+
+            function handleOnChange(e) {
+                markers
+                    .forEach(function(marker, markerIndex) {
+                        if (markerIndex === e.suggestionIndex) {
+                            markers = [marker];
+                            marker.setOpacity(1);
+                            findBestZoom();
+                        } else {
+                            removeMarker(marker);
+                        }
+                    });
+            }
+
+            function handleOnClear() {
+                map.setView(new L.LatLng(0, 0), 1);
+                markers.forEach(removeMarker);
+            }
+
+            function handleOnCursorchanged(e) {
+                markers
+                    .forEach(function(marker, markerIndex) {
+                        if (markerIndex === e.suggestionIndex) {
+                            marker.setOpacity(1);
+                            marker.setZIndexOffset(1000);
+                        } else {
+                            marker.setZIndexOffset(0);
+                            marker.setOpacity(0.5);
+                        }
+                    });
+            }
+
+            function addMarker(suggestion) {
+                var marker = L.marker(suggestion.latlng, {opacity: .4});
+                marker.addTo(map);
+                markers.push(marker);
+            }
+
+            function removeMarker(marker) {
+                map.removeLayer(marker);
+            }
+
+            function findBestZoom() {
+                var featureGroup = L.featureGroup(markers);
+                map.fitBounds(featureGroup.getBounds().pad(0.5), {animate: true});
+            }
+        })();
+    </script>
 {% endblock %}
