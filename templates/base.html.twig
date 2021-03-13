@@ -4,11 +4,13 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="shortcut icon" href="/build/img/favicon.png" type="image/x-icon">
         <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         {{ encore_entry_link_tags('style') }}
+        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}
         {% endblock %}
 
@@ -38,17 +40,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a {% if route_name == "user_index" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="#services">Services</a></li>
-                    <li class="nav-item"><a {% if route_name == "user_index" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a {% if route_name == "user_index" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="#about">About</a></li>
                     <li class="nav-item"><a {% if route_name == "user_index" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="#team">Team</a></li>
-                    <li class="nav-item"><a {% if route_name == "user_index" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="#contact">Contact</a></li>
+                    <li class="nav-item"><a {% if route_name == "subscription" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="{{ path('subscription') }}">Abonnements</a></li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item"><a {% if route_name == "profile" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="{{ path('profile') }}">Mon compte</a></li>
                     {% else %}
                     <li class="nav-item"><a {% if route_name == "app_login" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="{{ path('app_login') }}">Connexion</a></li>
                     <li class="nav-item"><a {% if route_name == "register" %} class="nav-link js-scroll-trigger active" {% else %} class="nav-link js-scroll-trigger" {% endif %} href="{{ path('register') }}">Inscription</a></li>
-                    {% endif %}
+                    {% endif %}{#
+                    {% if is_granted('') %}
+                    {% endif %}#}
                 </ul>
             </div>
         </div>

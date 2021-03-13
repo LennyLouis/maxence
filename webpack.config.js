@@ -24,8 +24,10 @@ Encore
      */
     //.addEntry('app', './assets/app.js')
 
-    .addStyleEntry('app', './assets/styles/app.css')
     .addStyleEntry('style', './assets/styles/styles.css')
+    .addStyleEntry('app', './assets/styles/app.css')
+    .addStyleEntry('styleAdmin', './assets/admin/styles/coreui.css')
+    .addStyleEntry('appAdmin', './assets/admin/styles/app.css')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -34,7 +36,9 @@ Encore
         // copies to {output}/static
         { from: './assets/img', to: 'img' },
         { from: './assets/plugins', to: 'plugins'},
-        { from: './assets/js', to: 'js'}
+        { from: './assets/js', to: 'js'},
+        { from: './assets/admin/js', to: 'admin/js'},
+        { from: './assets/admin/sprites', to: 'admin/sprites'}
     ]}))
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

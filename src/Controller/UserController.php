@@ -39,7 +39,6 @@ class UserController extends AbstractController
     {
         $user = $this->security->getUser();
 
-
         // Formulaire changement d'informations générale
 
         $form1 = $this->get('form.factory')->createNamedBuilder('modifyForm', 'Symfony\Component\Form\Extension\Core\Type\FormType', $user)

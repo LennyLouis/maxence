@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% form_theme createForm 'bootstrap_4_layout.html.twig' %}
+
+{% set breadcrumb = ["Abonnements", "Créer un abonnement"] %}
+
+{% block title %}Abonnements{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <section class="pricing py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Free Tier -->
+                    <div class="col-lg-6">
+                        {{ form(createForm) }}
+                    </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

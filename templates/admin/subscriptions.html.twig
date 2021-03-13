@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set breadcrumb = ["Abonnements"] %}
+
+{% block title %}Abonnements{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <section class="pricing py-5">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <!-- Free Tier -->
+                {% for sub in subscriptions %}
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">{{ sub.name|e }}</h5>
+                                <h6 class="card-price text-center">{{ sub.price|e }}€<span class="period">/mois</span></h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    {% for desc in sub.description|json_decode %}
+                                        {% if desc.validate %}
+                                            <li><span class="fa-li"><i class="fas fa-check"></i></span>{{ desc.value }}</li>
+                                        {% else %}
+                                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>{{ desc.value }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                <a href="{{ path('admin_subscriptions_edit', {'id': sub.id}) }}" class="btn btn-block btn-warning text-uppercase">Modifier cette offre</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row top-buffer justify-content-md-center">
+                <a href="{{ path('admin_subscriptions_new') }}" class="btn btn-primary text-uppercase">Nouvel abonnement</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

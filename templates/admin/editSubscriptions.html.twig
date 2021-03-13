@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% form_theme modifyForm 'bootstrap_4_layout.html.twig' %}
+
+{% set breadcrumb = ["Abonnements", "Modifier un abonnement"] %}
+
+{% block title %}Abonnements{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <section class="pricing py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Free Tier -->
+                    <div class="col-lg-4">
+                        <h2>Apercu :</h2>
+                        <br>
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">{{ sub.name|e }}</h5>
+                                <h6 class="card-price text-center">{{ sub.price|e }}€<span class="period">/mois</span></h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    {% for desc in sub.description|json_decode %}
+                                        {% if desc.validate %}
+                                            <li><span class="fa-li"><i class="fas fa-check"></i></span>{{ desc.value }}</li>
+                                        {% else %}
+                                            <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>{{ desc.value }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                <a href="#" class="btn btn-block btn-warning text-uppercase">Choisir cette offre</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form(modifyForm) }}
+                    </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
