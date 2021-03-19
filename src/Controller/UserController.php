@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -173,7 +174,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/register', name: 'register')]
-    public function register(User $user = null, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
+    public function register(User $user = null, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, SluggerInterface $slugger): Response
     {
         if(!$user){
             $user = new User();
@@ -231,12 +232,45 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            if(!$user->getId()) {
+
+        if($form->isSubmitted()/* && $form->isValid()*/) {
+            dd($form);
+            //if(!$user->getId()) {
                 $user->setPassword($encoder->encodePassword($user, $form->getData()->getPassword()));
                 $user->setCreatedAt(new \DateTime());
                 $user->setLastConnection(new \DateTime());
                 $user->setAccountStatus('pending');
+
+                /**
+                 * Gestion de l'upload de l'avatar
+                 */
+
+                $avatar = $form->get('avatar')->getData();
+
+                // this condition is needed because the 'brochure' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+
+                if ($avatar) {
+                    $originalFilename = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$avatar->guessExtension();
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $avatar->move(
+                            $this->getParameter('user_avatar_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $user->setAvatar($newFilename);
+                //}
+
             }
 
             $manager->persist($user);

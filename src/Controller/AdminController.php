@@ -23,8 +23,14 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'admin_dashboard')]
     public function dashboard(): Response
     {
+        $path = 'build/images/header-bg.050c4eca.jpg';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         return $this->render('admin/dashboard.html.twig', [
             'controller_name' => 'AdminController',
+            'testBase' => $base64
         ]);
     }
 

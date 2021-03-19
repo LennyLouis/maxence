@@ -127,6 +127,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/spatie/url-signer" />
+      <path value="$PROJECT_DIR$/vendor/tilleuls/url-signer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/league/uri-components" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

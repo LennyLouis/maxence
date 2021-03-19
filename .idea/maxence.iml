@@ -130,6 +130,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/url-signer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tilleuls/url-signer-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/uri-components" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

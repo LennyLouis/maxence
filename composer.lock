@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be51ba4c6a0a37b5b586b77b23d2622e",
+    "content-hash": "24be845075c399cb9faf69bfde38cc05",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2889,6 +2889,95 @@
             "time": "2020-11-22T14:29:11+00:00"
         },
         {
+            "name": "league/uri-components",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/uri-components.git",
+                "reference": "14540a610ba5b70a7daf83582a109291baa004d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/uri-components/zipball/14540a610ba5b70a7daf83582a109291baa004d0",
+                "reference": "14540a610ba5b70a7daf83582a109291baa004d0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "league/uri-interfaces": "^2.1",
+                "php": "^7.3 || ^8.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "guzzlehttp/psr7": "^1.4.2",
+                "laminas/laminas-diactoros": "^2.0",
+                "league/uri": "^6.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "ext-fileinfo": "Needed to create Data URI from a filepath",
+                "ext-gmp": "to improve handle IPV4 parsing",
+                "ext-intl": "to handle IDN host",
+                "jeremykendall/php-domain-parser": "Public Suffix and Top Level Domain parsing implemented in PHP",
+                "league/uri": "to allow manipulating URI objects",
+                "php-64bit": "to improve handle IPV4 parsing",
+                "psr/http-message-implementation": "to allow manipulating PSR-7 Uri objects"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Uri\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://nyamsprod.com"
+                }
+            ],
+            "description": "URI components manipulation library",
+            "homepage": "http://uri.thephpleague.com",
+            "keywords": [
+                "authority",
+                "components",
+                "fragment",
+                "host",
+                "path",
+                "port",
+                "query",
+                "rfc3986",
+                "scheme",
+                "uri",
+                "url",
+                "userinfo"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/uri-components/issues",
+                "source": "https://github.com/thephpleague/uri-components/tree/2.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-01-26T19:38:41+00:00"
+        },
+        {
             "name": "league/uri-interfaces",
             "version": "2.2.0",
             "source": {
@@ -3664,6 +3753,66 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
             },
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "spatie/url-signer",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/url-signer.git",
+                "reference": "110b9ea84f149de1a5f4b1adf2adba4bbd6bea23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/url-signer/zipball/110b9ea84f149de1a5f4b1adf2adba4bbd6bea23",
+                "reference": "110b9ea84f149de1a5f4b1adf2adba4bbd6bea23",
+                "shasum": ""
+            },
+            "require": {
+                "league/uri": "^6.0",
+                "league/uri-components": "^2.2",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\UrlSigner\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://github.com/sebastiandedeyne",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate a url with an expiration date and signature to prevent unauthorized access",
+            "homepage": "https://github.com/spatie/url-signer",
+            "keywords": [
+                "encryption",
+                "security",
+                "sign",
+                "spatie",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/url-signer/issues",
+                "source": "https://github.com/spatie/url-signer/tree/1.2.1"
+            },
+            "time": "2021-02-05T07:25:15+00:00"
         },
         {
             "name": "symfony/asset",
@@ -8662,6 +8811,79 @@
                 }
             ],
             "time": "2021-02-03T04:42:09+00:00"
+        },
+        {
+            "name": "tilleuls/url-signer-bundle",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coopTilleuls/UrlSignerBundle.git",
+                "reference": "9b4e029a459d81828cf548042025b582526b26a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coopTilleuls/UrlSignerBundle/zipball/9b4e029a459d81828cf548042025b582526b26a6",
+                "reference": "9b4e029a459d81828cf548042025b582526b26a6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "spatie/url-signer": "^1.1",
+                "symfony/config": "^4.4 || ^5.1",
+                "symfony/dependency-injection": "^4.4 || ^5.1",
+                "symfony/event-dispatcher": "^4.4 || ^5.1",
+                "symfony/http-kernel": "^4.4 || ^5.1",
+                "symfony/routing": "^4.4 || ^5.1"
+            },
+            "require-dev": {
+                "behat/behat": "^3.8",
+                "friends-of-behat/symfony-extension": "dev-master",
+                "friendsofphp/php-cs-fixer": "^2.18",
+                "infection/infection": "^0.21.0",
+                "jangregor/phpstan-prophecy": "^0.8",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-phpunit": "^0.15",
+                "psalm/plugin-symfony": "^2.1",
+                "symfony/browser-kit": "^4.4 || ^5.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0",
+                "vimeo/psalm": "^4.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "CoopTilleuls\\UrlSignerBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/features/",
+                    "/tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alan Poulain",
+                    "email": "alan@les-tilleuls.coop"
+                }
+            ],
+            "description": "Create and validate signed URLs with a limited lifetime in Symfony",
+            "keywords": [
+                "encryption",
+                "security",
+                "sign",
+                "symfony",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/coopTilleuls/UrlSignerBundle/issues",
+                "source": "https://github.com/coopTilleuls/UrlSignerBundle/tree/v1.0.2"
+            },
+            "time": "2021-02-18T17:41:05+00:00"
         },
         {
             "name": "twig/extra-bundle",
